@@ -8,12 +8,23 @@ function createWindow () {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      webviewTag: true
     }
   })
-
   // and load the index.html of the app.
   mainWindow.loadURL('http://localhost:5173')
+
+  // const content = new WebContentsView()
+  // content.webContents.loadURL('https://www.google.com')
+  // content.setBounds({x:0, y: 60, height:600, width:800})
+  // content.on('')
+  //
+  // mainWindow.contentView.addChildView(content)
+  // mainWindow.on('resize', () => content.setBounds({x:0, y:60, height: mainWindow.getBounds().height, width:mainWindow.getBounds().width}))
+  // ipcMain.on('set-url', (event, url) => {
+  //   content.webContents.loadURL(url)
+  // })
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
