@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron')
+const {ipcMain} = require('electron/main')
 const path = require('node:path')
 
 function createWindow () {
@@ -7,25 +8,24 @@ function createWindow () {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    titleBarStyle: 'hidden',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       webviewTag: true
     }
   })
   // and load the index.html of the app.
-  mainWindow.loadURL('http://localhost:5173')
-
-  // const content = new WebContentsView()
-  // content.webContents.loadURL('https://www.google.com')
-  // content.setBounds({x:0, y: 60, height:600, width:800})
-  // content.on('')
-  //
-  // mainWindow.contentView.addChildView(content)
-  // mainWindow.on('resize', () => content.setBounds({x:0, y:60, height: mainWindow.getBounds().height, width:mainWindow.getBounds().width}))
-  // ipcMain.on('set-url', (event, url) => {
-  //   content.webContents.loadURL(url)
-  // })
-
+  if (!app.isPackaged) {
+    mainWindow.loadURL('http://localhost:5173')
+  } else {
+    // TODO: this aint work yet
+    // TODO: instead of compiling a Svelte app, use npm run package to create a svelte library.
+    // TODO: Then mount it in renderer.js.
+    mainWindow.loadFile(path.join(__dirname, 'browser/dist/index.html'))
+  }
+  ipcMain.on('close', () => mainWindow.close())
+  ipcMain.on('maximize', () => mainWindow.maximize())
+  ipcMain.on('minimize', () => mainWindow.minimize())
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }

@@ -6,3 +6,10 @@
  *
  * https://www.electronjs.org/docs/latest/tutorial/sandbox
  */
+const {contextBridge, ipcRenderer} = require('electron/renderer')
+
+contextBridge.exposeInMainWorld('windowControls', {
+    close: () => ipcRenderer.send('close'),
+    minimize: () => ipcRenderer.send('minimize'),
+    maximize: () => ipcRenderer.send('maximize'),
+})
