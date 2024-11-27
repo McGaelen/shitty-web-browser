@@ -18,3 +18,8 @@ export function setWvDimensions() {
   app_state.wvWidth = window.innerWidth
   app_state.wvHeight = window.innerHeight - app_state.headerHeight
 }
+
+export function closeTab(id: string) {
+  app_state.tab_ids = app_state.tab_ids.filter(tab_id => tab_id !== id)
+  app_state.active_tab_id = app_state.tab_ids.at(-1) ?? ''
+}

@@ -23,8 +23,10 @@
 <div class="header" style="height: {app_state.headerHeight}px;">
   <div class="drag-space"></div>
 
-  <button onclick={() => webview.goBack()}>back</button>
-  <button onclick={() => webview.goForward()}>forward</button>
+  <div style="display: flex; margin-right: 10px;">
+    <button onclick={() => webview.goBack()}>&lt;</button>
+    <button onclick={() => webview.goForward()}>&gt;</button>
+  </div>
 
   <div class="tabs">
    {#each app_state.tab_ids as tab_id}
@@ -65,6 +67,7 @@
     height: 100%;
     display: flex;
     align-items: center;
+    gap: 3px;
     flex: 0 1 100%;
   }
 
