@@ -50,9 +50,9 @@
 
   .drag-space {
     app-region: drag;
-    width: 50px;
-    min-width: 50px;
-    max-width: 50px;
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
     height: 100%;
   }
 

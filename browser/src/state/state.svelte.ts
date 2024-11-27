@@ -13,7 +13,7 @@ export const app_state = $state<State>({
   tab_ids: [],
   wvHeight: 800,
   wvWidth: 600,
-  headerHeight: 40,
+  headerHeight: 30,
 })
 
 export function setWvDimensions() {
