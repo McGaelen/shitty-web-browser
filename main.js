@@ -8,19 +8,21 @@ function createWindow () {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    minWidth: 450,
     titleBarStyle: 'hidden',
+    frame: false,
+    transparent: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       webviewTag: true
     }
   })
+
   // and load the index.html of the app.
   if (!app.isPackaged) {
     mainWindow.loadURL('http://localhost:5173')
   } else {
     // TODO: this aint work yet
-    // TODO: instead of compiling a Svelte app, use npm run package to create a svelte library.
-    // TODO: Then mount it in renderer.js.
     mainWindow.loadFile(path.join(__dirname, 'browser/dist/index.html'))
   }
   ipcMain.on('close', () => mainWindow.close())

@@ -1,83 +1,27 @@
 <script lang="ts">
-  import Tab from "./Tab.svelte";
   import {app_state, setWvDimensions} from "../state/state.svelte";
   import {onMount} from "svelte";
+  import Header from "./Header.svelte";
 
-  let webview: any
-
-  onMount(() => {
-    setWvDimensions()
-    newTab()
-  })
-
-  function newTab() {
-    const newtab_id = crypto.randomUUID()
-    app_state.tab_ids.push(newtab_id)
-    app_state.active_tab_id = newtab_id
-  }
-
+  onMount(() => setWvDimensions())
 </script>
 
 <svelte:window on:resize={setWvDimensions}></svelte:window>
 
-<div class="header" style="height: {app_state.headerHeight}px;">
-  <div class="drag-space"></div>
+<div id="app-container" style="height: {app_state.wvHeight + app_state.headerHeight}px">
 
-  <div style="display: flex; margin-right: 10px;">
-    <button onclick={() => webview.goBack()}>&lt;</button>
-    <button onclick={() => webview.goForward()}>&gt;</button>
-  </div>
+  <Header></Header>
 
-  <div class="tabs">
-   {#each app_state.tab_ids as tab_id}
-     <Tab {tab_id}/>
-   {/each}
-  </div>
-
-  <button style="margin: 0 15px; white-space: nowrap" onclick={newTab}>new tab</button>
-
-
-  <div class="window-controls">
-    <button onclick={() => window.windowControls.minimize()}>-</button>
-    <button onclick={() => window.windowControls.maximize()}>+</button>
-    <button onclick={() => window.windowControls.close()}>X</button>
+  <div class="no-tabs" style="height: {app_state.wvHeight}px;">
+    you have no tabs open bro
   </div>
 </div>
 
 <style>
-  .header {
+  .no-tabs {
+    background-color: var(--background-color);
     display: flex;
     align-items: center;
-    box-shadow: 0 0 10px black;
-    min-width: 100vw;
-    max-width: 100vw;
-    z-index: 99999;
-  }
-
-  .drag-space {
-    app-region: drag;
-    width: 50px;
-    min-width: 50px;
-    max-width: 50px;
-    height: 100%;
-  }
-
-  .tabs {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    flex: 0 1 100%;
-  }
-
-  .window-controls {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    margin: 0 5px;
-  }
-  .window-controls button {
-    width: 30px;
+    justify-content: center;
   }
 </style>

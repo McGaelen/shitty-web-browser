@@ -4,6 +4,7 @@
 
   let { tab_id } = $props<{tab_id: string}>()
 
+  let webview: any
   let omnibox: HTMLInputElement
 
   let src = $state('https://www.google.com')
@@ -11,6 +12,14 @@
   let showUrlBar = $state(false)
   let pageTitle = $state('')
   let favicons = $state([])
+
+  export function goBack() {
+    webview.goBack()
+  }
+
+  export function goForward() {
+    webview.goForward()
+  }
 
   function search() {
     if (src === omniboxVal) return
@@ -26,7 +35,7 @@
     }
   }
 
-  async function onclick(e: MouseEvent) {
+  async function onclick() {
     if (app_state.active_tab_id === tab_id) {
       showUrlBar = true
       await tick()
@@ -53,13 +62,14 @@
 </div>
 
 <webview
-    {src}
-    class:hide={app_state.active_tab_id !== tab_id}
-    style="position:absolute; top: {app_state.headerHeight}px; left: 0px; width: {app_state.wvWidth}px; height: {app_state.wvHeight}px;"
-    ondid-finish-load={() => console.log('finished loading')}
-    onpage-title-updated={({title}) => pageTitle = title}
-    onpage-favicon-updated={({favicons: list}) => favicons = list}
-    ondid-navigate={({url}) => omniboxVal = url}
+  bind:this={webview}
+  {src}
+  class:hide={app_state.active_tab_id !== tab_id}
+  style="top: {app_state.headerHeight}px; width: {app_state.wvWidth}px; height: {app_state.wvHeight}px;"
+  ondid-finish-load={() => console.log('finished loading')}
+  onpage-title-updated={({title}) => pageTitle = title}
+  onpage-favicon-updated={({favicons: list}) => favicons = list}
+  ondid-navigate={({url}) => omniboxVal = url}
 ></webview>
 
 <style>
@@ -79,8 +89,8 @@
   }
 
   webview {
-    width: 800px;
-    height: 600px;
+    position: absolute;
+    left: 0;
   }
   .hide {
     visibility: hidden;
