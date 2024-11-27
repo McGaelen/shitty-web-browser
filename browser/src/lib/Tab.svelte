@@ -1,5 +1,5 @@
 <script lang="ts">
-  import {tick} from "svelte";
+  import {onMount, tick} from "svelte";
   import {app_state, closeTab} from "../state/state.svelte";
 
   let { tab_id } = $props<{tab_id: string}>()
@@ -13,13 +13,9 @@
   let pageTitle = $state('')
   let favicons = $state([])
 
-  export function goBack() {
-    webview.goBack()
-  }
-
-  export function goForward() {
-    webview.goForward()
-  }
+  onMount(() => {
+    app_state.active_webview = webview
+  })
 
   function search() {
     if (src === omniboxVal) return
@@ -43,6 +39,7 @@
       omnibox.select()
     } else {
       app_state.active_tab_id = tab_id
+      app_state.active_webview = webview
     }
   }
 </script>

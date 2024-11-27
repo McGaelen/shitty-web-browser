@@ -15,9 +15,9 @@
 <div class="header" style="height: {app_state.headerHeight}px;">
   <div class="drag-space"></div>
 
-  <div style="display: flex; gap: 2px; margin-right: 10px;">
-    <button onclick={() => webview.goBack()}>&lt;</button>
-    <button onclick={() => webview.goForward()}>&gt;</button>
+  <div style="display: flex; gap: 2px;">
+    <button disabled={!app_state.active_webview} onclick={() => app_state.active_webview.goBack()}>&lt;</button>
+    <button disabled={!app_state.active_webview} onclick={() => app_state.active_webview.goForward()}>&gt;</button>
   </div>
 
   <div class="tabs">
@@ -26,7 +26,7 @@
     {/each}
   </div>
 
-  <button style="margin: 0 15px; white-space: nowrap" onclick={newTab}>new tab</button>
+  <button style="white-space: nowrap" onclick={newTab}>new tab</button>
 
   <div class="window-controls">
     <button onclick={() => window.windowControls.minimize()}>-</button>
@@ -42,6 +42,7 @@
     border-top-right-radius: 10px;
     height: 100%;
     display: flex;
+    gap: 10px;
     align-items: center;
     min-width: 100vw;
     max-width: 100vw;
@@ -68,7 +69,7 @@
     display: flex;
     align-items: center;
     gap: 2px;
-    margin: 0 5px;
+    margin-right: 10px;
   }
   .window-controls button {
     width: 30px;

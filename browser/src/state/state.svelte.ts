@@ -1,5 +1,6 @@
 interface State {
   active_tab_id: string
+  active_webview: any
   tab_ids: string[]
   wvWidth: number
   wvHeight: number
@@ -8,6 +9,7 @@ interface State {
 
 export const app_state = $state<State>({
   active_tab_id: '',
+  active_webview: null,
   tab_ids: [],
   wvHeight: 800,
   wvWidth: 600,
