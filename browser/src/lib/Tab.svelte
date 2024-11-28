@@ -13,9 +13,9 @@
   let pageTitle = $state('')
   let favicons = $state([])
 
-  onMount(() => {
-    app_state.active_webview = webview
-  })
+  // onMount(() => {
+  //   app_state.active_webview = webview
+  // })
 
   function search() {
     if (src === omniboxVal) return
@@ -39,7 +39,6 @@
       omnibox.select()
     } else {
       app_state.active_tab_id = tab_id
-      app_state.active_webview = webview
     }
   }
 </script>

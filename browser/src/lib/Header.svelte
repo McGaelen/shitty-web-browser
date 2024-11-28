@@ -57,12 +57,16 @@
   }
 
   .tabs {
+    overflow-x: auto;
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     gap: 3px;
     flex: 0 1 100%;
+  }
+  .tabs::-webkit-scrollbar {
+    display: none;
   }
 
   .window-controls {
