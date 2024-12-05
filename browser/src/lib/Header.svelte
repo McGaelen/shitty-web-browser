@@ -3,8 +3,6 @@
   import Tab from "./Tab.svelte";
   import {onMount} from "svelte";
 
-  onMount(() => newTab())
-
   function newTab() {
     const newtab_id = crypto.randomUUID()
     app_state.tab_ids.push(newtab_id)
@@ -13,12 +11,12 @@
 </script>
 
 <div class="header" style="height: {app_state.headerHeight}px;">
-  <div class="drag-space"></div>
-
-  <div style="display: flex; gap: 2px;">
-    <button disabled={!app_state.active_webview} onclick={() => app_state.active_webview.goBack()}>&lt;</button>
-    <button disabled={!app_state.active_webview} onclick={() => app_state.active_webview.goForward()}>&gt;</button>
+  <div style="display: flex; gap: 2px; height: 100%;">
+    <button class="ms-btn">&lt;</button>
+    <button class="ms-btn">&gt;</button>
   </div>
+
+  <div class="drag-space"></div>
 
   <div class="tabs">
     {#each app_state.tab_ids as tab_id}
@@ -26,23 +24,23 @@
     {/each}
   </div>
 
-  <button style="white-space: nowrap" onclick={newTab}>new tab</button>
+  <div class="drag-space"></div>
 
-  <div class="window-controls">
-    <button onclick={() => window.windowControls.minimize()}>-</button>
-    <button onclick={() => window.windowControls.maximize()}>+</button>
-    <button onclick={() => window.windowControls.close()}>X</button>
-  </div>
+  <button class="ms-btn new-tab" onclick={newTab}>+</button>
+
+<!--  <div class="window-controls">-->
+<!--    <button onclick={() => window.windowControls.minimize()}>-</button>-->
+<!--    <button onclick={() => window.windowControls.maximize()}>+</button>-->
+<!--    <button onclick={() => window.windowControls.close()}>X</button>-->
+<!--  </div>-->
 </div>
 
 <style>
   .header {
     background-color: var(--background-color);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     height: 100%;
     display: flex;
-    gap: 10px;
+    /*gap: 10px;*/
     align-items: center;
     min-width: 100vw;
     max-width: 100vw;
@@ -67,6 +65,28 @@
   }
   .tabs::-webkit-scrollbar {
     display: none;
+  }
+
+  .ms-btn {
+    white-space: nowrap;
+    height: 100%;
+    min-width: 45px;
+    max-width: 45px;
+    background-color: var(--background-color);
+    border: none;
+    transition: all;
+    transition-duration: 250ms;
+    font-family: "Courier New";
+    font-size: 20px;
+  }
+  .ms-btn:hover {
+    background-color: #555555;
+  }
+  .ms-btn:active {
+    background-color: #6e6e6e;
+  }
+  .new-tab {
+    margin-right: 137px;
   }
 
   .window-controls {
