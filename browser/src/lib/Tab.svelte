@@ -1,6 +1,7 @@
 <script lang="ts">
   import {onMount, tick} from "svelte";
   import {app_state, closeTab} from "../state/state.svelte";
+  import {X} from 'lucide-svelte'
 
   let { tab_id } = $props<{tab_id: string}>()
 
@@ -49,12 +50,14 @@
       <input bind:this={omnibox} bind:value={omniboxVal} onkeypress={e => e.stopImmediatePropagation()} {onkeyup} onclick={e => e.stopPropagation()} onblur={() => showUrlBar = false}/>
     {:else}
       {#if favicons[0]}
-        <img src={favicons[0]} style="width: 20px; height: 20px; margin-right: 10px;"/>
+        <img src={favicons[0]} class="w-[20px] h-[20px] mr-[10px]"/>
       {/if}
-      <p style="white-space: nowrap; text-overflow: ellipsis">{pageTitle}</p>
+      <p class="whitespace-nowrap overflow-ellipsis">{pageTitle}</p>
     {/if}
   </button>
-  <button onclick={() => closeTab(tab_id)} style="height: 100%;">X</button>
+  <button onclick={() => closeTab(tab_id)} class="h-full">
+    <X size={14}/>
+  </button>
 </div>
 
 <webview

@@ -11,11 +11,11 @@ function createWindow () {
     minWidth: 450,
     titleBarStyle: 'hidden',
     frame: false,
-    titleBarOverlay: {
-      color: '#3c3c3c',
-      symbolColor: '#ffffff',
-      height: 30
-    },
+    // titleBarOverlay: {
+    //   color: '#3c3c3c',
+    //   symbolColor: '#ffffff',
+    //   height: 30
+    // },
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       webviewTag: true

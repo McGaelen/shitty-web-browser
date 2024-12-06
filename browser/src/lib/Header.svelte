@@ -1,7 +1,7 @@
 <script>
   import {app_state} from "../state/state.svelte";
   import Tab from "./Tab.svelte";
-  import {onMount} from "svelte";
+  import {Plus, Square, X, Minus, ArrowLeft, ArrowRight } from 'lucide-svelte'
 
   function newTab() {
     const newtab_id = crypto.randomUUID()
@@ -12,8 +12,12 @@
 
 <div class="header" style="height: {app_state.headerHeight}px;">
   <div style="display: flex; gap: 2px; height: 100%;">
-    <button class="ms-btn">&lt;</button>
-    <button class="ms-btn">&gt;</button>
+    <button class="ms-btn">
+      <ArrowLeft strokeWidth={1} size={20} />
+    </button>
+    <button class="ms-btn">
+      <ArrowRight strokeWidth={1} size={20} />
+    </button>
   </div>
 
   <div class="drag-space"></div>
@@ -26,13 +30,21 @@
 
   <div class="drag-space"></div>
 
-  <button class="ms-btn new-tab" onclick={newTab}>+</button>
+  <button class="ms-btn new-tab" onclick={newTab}>
+    <Plus absoluteStrokeWidth strokeWidth={1} size={20} />
+  </button>
 
-<!--  <div class="window-controls">-->
-<!--    <button onclick={() => window.windowControls.minimize()}>-</button>-->
-<!--    <button onclick={() => window.windowControls.maximize()}>+</button>-->
-<!--    <button onclick={() => window.windowControls.close()}>X</button>-->
-<!--  </div>-->
+  <div class="window-controls">
+    <button class="ms-btn !items-end" onclick={() => window.windowControls.minimize()}>
+      <Minus absoluteStrokeWidth strokeWidth={1} size={20} />
+    </button>
+    <button class="ms-btn" onclick={() => window.windowControls.maximize()}>
+      <Square absoluteStrokeWidth strokeWidth={1} size={16} />
+    </button>
+    <button class="ms-btn" onclick={() => window.windowControls.close()}>
+      <X strokeWidth={1} size={22  } />
+    </button>
+  </div>
 </div>
 
 <style>
@@ -76,8 +88,9 @@
     border: none;
     transition: all;
     transition-duration: 250ms;
-    font-family: "Courier New";
-    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .ms-btn:hover {
     background-color: #555555;
@@ -85,15 +98,12 @@
   .ms-btn:active {
     background-color: #6e6e6e;
   }
-  .new-tab {
-    margin-right: 137px;
-  }
 
   .window-controls {
+    height: 100%;
     display: flex;
     align-items: center;
     gap: 2px;
-    margin-right: 10px;
   }
   .window-controls button {
     width: 30px;
