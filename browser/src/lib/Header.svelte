@@ -2,6 +2,7 @@
   import {app_state} from "../state/state.svelte";
   import Tab from "./Tab.svelte";
   import {Plus, Square, X, Minus, ArrowLeft, ArrowRight } from 'lucide-svelte'
+  import {Button} from '$lib/components/ui/button'
 
   function newTab() {
     const newtab_id = crypto.randomUUID()
@@ -12,12 +13,12 @@
 
 <div class="header" style="height: {app_state.headerHeight}px;">
   <div style="display: flex; gap: 2px; height: 100%;">
-    <button class="ms-btn">
+    <Button variant="ghost" class="h-full rounded-none">
       <ArrowLeft strokeWidth={1} size={20} />
-    </button>
-    <button class="ms-btn">
+    </Button>
+    <Button variant="ghost" class="h-full rounded-none">
       <ArrowRight strokeWidth={1} size={20} />
-    </button>
+    </Button>
   </div>
 
   <div class="drag-space"></div>
@@ -30,20 +31,20 @@
 
   <div class="drag-space"></div>
 
-  <button class="ms-btn new-tab" onclick={newTab}>
+  <Button variant="ghost" class="h-full rounded-none" onclick={newTab}>
     <Plus absoluteStrokeWidth strokeWidth={1} size={20} />
-  </button>
+  </Button>
 
   <div class="window-controls">
-    <button class="ms-btn !items-end" onclick={() => window.windowControls.minimize()}>
+    <Button variant="ghost" class="h-full rounded-none" onclick={() => window.windowControls.minimize()}>
       <Minus absoluteStrokeWidth strokeWidth={1} size={20} />
-    </button>
-    <button class="ms-btn" onclick={() => window.windowControls.maximize()}>
+    </Button>
+    <Button variant="ghost" class="h-full rounded-none" onclick={() => window.windowControls.maximize()}>
       <Square absoluteStrokeWidth strokeWidth={1} size={16} />
-    </button>
-    <button class="ms-btn" onclick={() => window.windowControls.close()}>
+    </Button>
+    <Button variant="ghost" class="h-full rounded-none" onclick={() => window.windowControls.close()}>
       <X strokeWidth={1} size={22  } />
-    </button>
+    </Button>
   </div>
 </div>
 

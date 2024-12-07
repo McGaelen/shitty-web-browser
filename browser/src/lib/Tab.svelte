@@ -2,6 +2,7 @@
   import {onMount, tick} from "svelte";
   import {app_state, closeTab} from "../state/state.svelte";
   import {X} from 'lucide-svelte'
+  import {Button} from "$lib/components/ui/button";
 
   let { tab_id } = $props<{tab_id: string}>()
 
@@ -45,7 +46,7 @@
 </script>
 
 <div class="tab">
-  <button class="tab" {onclick} class:active={app_state.active_tab_id === tab_id}>
+  <Button  variant="ghost" class="h-full rounded-none tab {app_state.active_tab_id === tab_id ? 'active' : ''}" {onclick} >
     {#if showUrlBar}
       <input bind:this={omnibox} bind:value={omniboxVal} onkeypress={e => e.stopImmediatePropagation()} {onkeyup} onclick={e => e.stopPropagation()} onblur={() => showUrlBar = false}/>
     {:else}
@@ -54,10 +55,10 @@
       {/if}
       <p class="whitespace-nowrap overflow-ellipsis">{pageTitle}</p>
     {/if}
-  </button>
-  <button onclick={() => closeTab(tab_id)} class="h-full">
+  </Button>
+  <Button variant="ghost" size="sm" onclick={() => closeTab(tab_id)} class="h-full rounded-none">
     <X size={14}/>
-  </button>
+  </Button>
 </div>
 
 <webview
